@@ -60,6 +60,7 @@ const Banner = () => {
     <div className="relative">
       <Swiper
         effect={"fade"}
+        loop={true}
         spaceBetween={30}
         centeredSlides={true}
         autoplay={{
@@ -89,7 +90,6 @@ const Banner = () => {
                   alt={banner.alt}
                   fill
                   style={{ objectFit: "cover" }}
-                  priority={index === 0}
                 ></Image>
               </div>
             </SwiperSlide>
