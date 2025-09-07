@@ -6,7 +6,11 @@ export default function Home() {
     <section className="space-y-8">
       {/* banner section */}
       <Banner></Banner>
-      <h1>Hello</h1>
+
+      {/* contents */}
+      <section>
+        <h1>Hello</h1>
+      </section>
     </section>
   );
 }

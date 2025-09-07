@@ -75,7 +75,7 @@ const Banner = () => {
           nextEl: nextRef.current,
         }}
         modules={[Autoplay, Pagination, Navigation]}
-        className="mySwiper w-full min-h-[calc(100vh-65px)]"
+        className="mySwiper w-full"
         onInit={(swiper) => {
           swiperRef.current = swiper;
           setIsSwiperReady(true);
@@ -84,7 +84,7 @@ const Banner = () => {
         {banners.map((banner, index) => {
           return (
             <SwiperSlide key={index}>
-              <div className="w-full min-h-[calc(100vh-65px)]">
+              <div className="w-full min-h-96 lg:min-h-[calc(100vh-65px)]">
                 <Image
                   src={banner.src}
                   alt={banner.alt}
@@ -118,9 +118,9 @@ const Banner = () => {
             Affordable Price <br /> For Car <br /> Servicing
           </h2>
           <p>
-            There are many variations of passages of available, but the majority
+            There are many variations of passages of available,
             <br />
-            have suffered alteration in some form
+            but the majority have suffered alteration in some form
           </p>
           <div className="flex flex-row gap-2 items-center">
             <button className="btn btn-primary rounded-md">
