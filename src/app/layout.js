@@ -29,7 +29,6 @@ export default function RootLayout({ children }) {
           <NavBar></NavBar>
         </nav>
         <main>
-
           {/* page route */}
           {children}
         </main>
