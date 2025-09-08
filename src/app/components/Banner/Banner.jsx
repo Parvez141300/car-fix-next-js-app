@@ -13,12 +13,12 @@ import "swiper/css/effect-fade";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import Image from "next/image";
 
-import bannerImg1 from "../../../public/assets/images/banner/1.jpg";
-import bannerImg2 from "../../../public/assets/images/banner/2.jpg";
-import bannerImg3 from "../../../public/assets/images/banner/3.jpg";
-import bannerImg4 from "../../../public/assets/images/banner/4.jpg";
-import bannerImg5 from "../../../public/assets/images/banner/5.jpg";
-import bannerImg6 from "../../../public/assets/images/banner/6.jpg";
+import bannerImg1 from "../../../../public/assets/images/banner/1.jpg";
+import bannerImg2 from "../../../../public/assets/images/banner/2.jpg";
+import bannerImg3 from "../../../../public/assets/images/banner/3.jpg";
+import bannerImg4 from "../../../../public/assets/images/banner/4.jpg";
+import bannerImg5 from "../../../../public/assets/images/banner/5.jpg";
+import bannerImg6 from "../../../../public/assets/images/banner/6.jpg";
 
 import {
   IoChevronBackCircleOutline,
