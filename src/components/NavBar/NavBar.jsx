@@ -1,6 +1,7 @@
 import React from "react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import NavLink from "../NavLink/NavLink";
+import Link from "next/link";
 
 const NavBar = () => {
   const links = (
@@ -45,14 +46,14 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow text-white"
           >
             {links}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl px-0 text-accent">CarFix</a>
+        <Link href={'/'} className="btn btn-ghost text-xl px-0 text-accent">CarFix</Link>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="navbar-center hidden lg:flex text-white">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-3">
