@@ -126,7 +126,7 @@ const Banner = () => {
             <button className="btn btn-primary rounded-md">
               Discover More
             </button>
-            <button className="btn btn-primary btn-outline rounded-md">
+            <button className="btn btn-primary btn-outline rounded-md text-white">
               Latest Project
             </button>
           </div>

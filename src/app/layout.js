@@ -26,10 +26,10 @@ export default function RootLayout({ children }) {
         className={`${poppins.className} antialiased`}
       >
         {/* nav bar */}
-        <nav className="bg-primary">
+        <nav className="bg-base-100">
           <NavBar></NavBar>
         </nav>
-        <main>
+        <main className="mb-12">
           {/* page route */}
           {children}
         </main>
