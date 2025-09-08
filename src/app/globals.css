@@ -9,7 +9,7 @@
   --color-primary: #b05779;
   --color-secondary: #a6d5b7;
   --color-accent: #81adc4;
-  --color-background: #fbf7f9;
+  --color-base-100: #fbf7f9;
 }
 
 @plugin "daisyui/theme" {
@@ -17,6 +17,6 @@
   --color-primary: #a64e70;
   --color-secondary: #2a5a3c;
   --color-accent: #3b667d;
-  --color-background: #070305;
+  --color-base-100: #070305;
 }
 
