@@ -1,69 +1,59 @@
 "use client";
-import Lottie from "lottie-react";
+import Link from "next/link";
 import React, { useState } from "react";
 import {
   FaEnvelope,
   FaEye,
   FaEyeSlash,
-  FaGithub,
   FaLock,
   FaUser,
 } from "react-icons/fa";
-import registerLottie from "../../../../public/LoginLottie.json";
-import Link from "next/link";
-import { FcGoogle } from "react-icons/fc";
-import { signIn } from "next-auth/react";
+import Lottie from "lottie-react";
+import registerLottie from "../../../../../public/RegisterLottie.json";
+import { registerUser } from "@/app/actions/auth/registerUser";
+import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
+import SocialMediaIcons from "../../_components/SocialMediaIcons";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     const form = e.target;
     const formData = new FormData(form);
-    const { email, password } = Object.fromEntries(formData);
+    const { name, email, password, confirmPassword } =
+      Object.fromEntries(formData);
+    if (password !== confirmPassword) {
+      return toast.error("Password didn't matched", {
+        position: "bottom-right",
+      });
+    }
+
+    const createdAt = new Date().toISOString();
+    const payload = { name, email, password, createdAt };
+
     try {
       setLoading(true);
-      const res = await signIn("credentials", {
-        email,
-        password,
-        callbackUrl: "/",
-        redirect: false,
-      });
-      if (res.ok) {
-        router.push("/");
-        form.reset();
+      const res = await registerUser(payload);
+      console.log('resonse is:', res);
+      if (res.insertedId) {
+        setLoading(true);
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "Successfully Logged in",
+          title: "Successfully Registered",
           showConfirmButton: false,
           timer: 1500,
         });
-      } else {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "Login Error: Authentication Failed",
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        form.reset();
       }
     } catch (error) {
-      Swal.fire({
-        position: "center",
-        icon: "error",
-        title: "Error",
-        showConfirmButton: false,
-        timer: 1500,
-      });
       setLoading(false);
-      console.log("error message", error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -78,13 +68,30 @@ const LoginForm = () => {
       <div className="card w-full lg:max-w-md shadow-2xl bg-base-100">
         <div className="card-body">
           <h2 className="card-title justify-center text-2xl font-bold mb-2">
-            Login Account
+            Create Account
           </h2>
           <p className="text-center text-base-content/70 mb-6">
             Join us today! Fill out the form to get started.
           </p>
 
-          <form onSubmit={handleLogin} className="space-y-4">
+          <form onSubmit={handleRegister} className="space-y-4">
+            {/* Name Field */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Full Name</span>
+              </label>
+              <label className="input focus-within:outline-none flex items-center gap-2 w-full rounded-lg">
+                <FaUser className="text-base-content/70" />
+                <input
+                  type="text"
+                  name="name"
+                  className="grow"
+                  placeholder="John Doe"
+                  required
+                />
+              </label>
+            </div>
+
             {/* Email Field */}
             <div className="form-control">
               <label className="label">
@@ -126,34 +133,51 @@ const LoginForm = () => {
               </label>
             </div>
 
+            {/* Confirm Password Field */}
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Confirm Password</span>
+              </label>
+              <label className="input focus-within:outline-none flex items-center gap-2 w-full rounded-lg">
+                <FaLock className="text-base-content/70" />
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  className="grow"
+                  placeholder="••••••••"
+                  required
+                />
+                <button
+                  onClick={() => setShowConfirmPassword((prv) => !prv)}
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                >
+                  {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              </label>
+            </div>
+
             {/* Submit Button */}
             <div className="form-control mt-6">
               <button
-                disabled={loading}
                 type="submit"
+                disabled={loading}
                 className={`btn btn-primary w-full rounded-lg flex items-center gap-1`}
               >
-                {loading ? <span class="loading loading-spinner"></span> : ""}
-                {loading ? "Logging In" : "Login"}
+                {loading ? <span className="loading loading-spinner"></span> : ""}
+                {loading ? 'Registering' : 'Register'}
               </button>
             </div>
           </form>
 
           <div className="divider">OR</div>
 
-          <div className="flex flex-col gap-2 mt-4">
-            <button className="btn btn-outline rounded-lg">
-              <FcGoogle size={25} /> Login with Google
-            </button>
-            <button className="btn btn-outline rounded-lg">
-              <FaGithub size={25} /> Login with GitHub
-            </button>
-          </div>
+          <SocialMediaIcons></SocialMediaIcons>
 
           <p className="text-center mt-4">
-            Don't have an account?{" "}
-            <Link href={"/register"} className="link link-primary">
-              Register
+            Already have an account?{" "}
+            <Link href={"/login"} className="link link-primary">
+              Login
             </Link>
           </p>
         </div>
@@ -162,4 +186,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;
