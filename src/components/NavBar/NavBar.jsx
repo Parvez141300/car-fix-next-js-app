@@ -57,9 +57,9 @@ const NavBar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-3">
-        <Link href={'/login'} className="btn font-normal rounded-lg">Login</Link>
-        <Link href={'/register'} className="btn font-normal rounded-lg">Register</Link>
         <ThemeToggle></ThemeToggle>
+        <Link href={'/login'} className="text-accent">Login</Link>
+        <Link href={'/register'} className="text-accent">Register</Link>
         <a className="btn btn-secondary btn-outline rounded-md">Appointment</a>
       </div>
     </div>
