@@ -3,7 +3,8 @@ import { MongoClient, ServerApiVersion } from 'mongodb';
 // pass: 3zx0blqgpCIloMAc
 
 export const collectionNames = {
-    "serviceCollection" : "services"
+    "serviceCollection" : "services",
+    "userCollection" : "users",
 }
 
 const dbConnect = (collectionName) => {

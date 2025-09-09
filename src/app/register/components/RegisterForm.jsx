@@ -1,18 +1,62 @@
 "use client";
 import Link from "next/link";
-import React from "react";
-import { FaEnvelope, FaEye, FaEyeSlash, FaGithub, FaLock, FaUser } from "react-icons/fa";
+import React, { useState } from "react";
+import {
+  FaEnvelope,
+  FaEye,
+  FaEyeSlash,
+  FaGithub,
+  FaLock,
+  FaUser,
+} from "react-icons/fa";
 import Lottie from "lottie-react";
 import registerLottie from "../../../../public/RegisterLottie.json";
 import { FcGoogle } from "react-icons/fc";
+import { registerUser } from "@/app/actions/auth/registerUser";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const RegisterForm = () => {
-  const handleRegister = (e) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const formData = new FormData(form);
-    const registerInfo = Object.fromEntries(formData);
-    console.log('register info', registerInfo);
+    const { name, email, password, confirmPassword } =
+      Object.fromEntries(formData);
+    if (password !== confirmPassword) {
+      return toast.error("Password didn't matched", {
+        position: "bottom-right",
+      });
+    }
+
+    const createdAt = new Date().toISOString();
+    const payload = { name, email, password, createdAt };
+
+    try {
+      setLoading(true);
+      const res = await registerUser(payload);
+      if (res.insertedId) {
+        setLoading(true);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully Registered",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        form.reset();
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 place-items-center">
@@ -73,14 +117,18 @@ const RegisterForm = () => {
               <label className="input focus-within:outline-none flex items-center gap-2 w-full rounded-lg">
                 <FaLock className="text-base-content/70" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   className="grow"
                   placeholder="••••••••"
                   required
                 />
-                <button type="button" className="btn btn-ghost btn-sm">
-                  <FaEyeSlash /> : <FaEye />
+                <button
+                  onClick={() => setShowPassword((prv) => !prv)}
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
               </label>
             </div>
@@ -93,14 +141,18 @@ const RegisterForm = () => {
               <label className="input focus-within:outline-none flex items-center gap-2 w-full rounded-lg">
                 <FaLock className="text-base-content/70" />
                 <input
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   className="grow"
                   placeholder="••••••••"
                   required
                 />
-                <button type="button" className="btn btn-ghost btn-sm">
-                  <FaEyeSlash /> <FaEye />
+                <button
+                  onClick={() => setShowConfirmPassword((prv) => !prv)}
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                >
+                  {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
               </label>
             </div>
@@ -109,9 +161,11 @@ const RegisterForm = () => {
             <div className="form-control mt-6">
               <button
                 type="submit"
-                className={`btn btn-primary w-full rounded-lg`}
+                disabled={loading}
+                className={`btn btn-primary w-full rounded-lg flex items-center gap-1`}
               >
-                Register
+                {loading ? <span class="loading loading-spinner"></span> : ""}
+                {loading ? 'Registering' : 'Register'}
               </button>
             </div>
           </form>
@@ -120,10 +174,10 @@ const RegisterForm = () => {
 
           <div className="flex flex-col gap-2 mt-4">
             <button className="btn btn-outline rounded-lg">
-            <FcGoogle size={25} /> Login with Google
+              <FcGoogle size={25} /> Login with Google
             </button>
             <button className="btn btn-outline rounded-lg">
-            <FaGithub size={25} /> Login with GitHub
+              <FaGithub size={25} /> Login with GitHub
             </button>
           </div>
 

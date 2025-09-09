@@ -1,18 +1,26 @@
 "use client";
 import Lottie from "lottie-react";
-import React from "react";
-import { FaEnvelope, FaEye, FaEyeSlash, FaGithub, FaLock, FaUser } from "react-icons/fa";
+import React, { useState } from "react";
+import {
+  FaEnvelope,
+  FaEye,
+  FaEyeSlash,
+  FaGithub,
+  FaLock,
+  FaUser,
+} from "react-icons/fa";
 import registerLottie from "../../../../public/LoginLottie.json";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 
 const LoginForm = () => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const loginInfo = Object.fromEntries(formData);
-    console.log('login info', loginInfo);
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 place-items-center">
@@ -56,14 +64,18 @@ const LoginForm = () => {
               <label className="input focus-within:outline-none flex items-center gap-2 w-full rounded-lg">
                 <FaLock className="text-base-content/70" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   name="password"
                   className="grow"
                   placeholder="••••••••"
                   required
                 />
-                <button type="button" className="btn btn-ghost btn-sm">
-                  <FaEyeSlash /> : <FaEye />
+                <button
+                  onClick={() => setShowPassword((prv) => !prv)}
+                  type="button"
+                  className="btn btn-ghost btn-sm"
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
               </label>
             </div>
@@ -83,10 +95,10 @@ const LoginForm = () => {
 
           <div className="flex flex-col gap-2 mt-4">
             <button className="btn btn-outline rounded-lg">
-            <FcGoogle size={25} /> Login with Google
+              <FcGoogle size={25} /> Login with Google
             </button>
             <button className="btn btn-outline rounded-lg">
-            <FaGithub size={25} /> Login with GitHub
+              <FaGithub size={25} /> Login with GitHub
             </button>
           </div>
 
