@@ -12,7 +12,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-import SocialMediaIcons from "../../_components/SocialMediaIcons";
+import SocialLogin from "../../_components/SocialLogin";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -139,7 +139,8 @@ const LoginForm = () => {
 
           <div className="divider">OR</div>
 
-          <SocialMediaIcons></SocialMediaIcons>
+          {/* social login */}
+          <SocialLogin></SocialLogin>
 
           <p className="text-center mt-4">
             Don't have an account?{" "}

@@ -13,7 +13,7 @@ import registerLottie from "../../../../../public/RegisterLottie.json";
 import { registerUser } from "@/app/actions/auth/registerUser";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import SocialMediaIcons from "../../_components/SocialMediaIcons";
+import SocialLogin from "../../_components/SocialLogin";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -172,7 +172,8 @@ const RegisterForm = () => {
 
           <div className="divider">OR</div>
 
-          <SocialMediaIcons></SocialMediaIcons>
+          {/* social login */}
+          <SocialLogin></SocialLogin>
 
           <p className="text-center mt-4">
             Already have an account?{" "}
