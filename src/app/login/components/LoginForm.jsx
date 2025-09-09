@@ -1,9 +1,10 @@
 "use client";
 import Lottie from "lottie-react";
 import React from "react";
-import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaUser } from "react-icons/fa";
+import { FaEnvelope, FaEye, FaEyeSlash, FaGithub, FaLock, FaUser } from "react-icons/fa";
 import registerLottie from "../../../../public/LoginLottie.json";
 import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
 
 const LoginForm = () => {
   const handleLogin = (e) => {
@@ -76,10 +77,10 @@ const LoginForm = () => {
 
           <div className="flex flex-col gap-2 mt-4">
             <button className="btn btn-outline rounded-lg">
-              Login with Google
+            <FcGoogle size={25} /> Login with Google
             </button>
             <button className="btn btn-outline rounded-lg">
-              Login with GitHub
+            <FaGithub size={25} /> Login with GitHub
             </button>
           </div>
 

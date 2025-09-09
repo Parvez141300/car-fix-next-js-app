@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import React from "react";
-import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaUser } from "react-icons/fa";
+import { FaEnvelope, FaEye, FaEyeSlash, FaGithub, FaLock, FaUser } from "react-icons/fa";
 import Lottie from "lottie-react";
 import registerLottie from "../../../../public/RegisterLottie.json";
+import { FcGoogle } from "react-icons/fc";
 
 const RegisterForm = () => {
   const handleRegister = (e) => {
@@ -111,10 +112,10 @@ const RegisterForm = () => {
 
           <div className="flex flex-col gap-2 mt-4">
             <button className="btn btn-outline rounded-lg">
-              Login with Google
+            <FcGoogle size={25} /> Login with Google
             </button>
             <button className="btn btn-outline rounded-lg">
-              Login with GitHub
+            <FaGithub size={25} /> Login with GitHub
             </button>
           </div>
 
