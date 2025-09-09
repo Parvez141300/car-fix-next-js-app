@@ -7,10 +7,11 @@ const AboutUs = () => {
   return (
     <section className="grid grid-cols-1 lg:grid-cols-2">
       <div className="relative">
-        <Image src={person} className="rounded-lg w-5/6"></Image>
+        <Image src={person} alt={'person'} className="rounded-lg w-5/6"></Image>
         <div className="flex justify-end">
           <Image
             src={parts}
+            alt={'parts'}
             className="w-1/2 -mt-24 lg:-mt-40 mr-10 rounded-lg border-8 border-accent z-10"
           ></Image>
         </div>

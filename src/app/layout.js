@@ -3,6 +3,7 @@ import "./globals.css";
 import NavBar from "@/components/NavBar/NavBar";
 import Footer from "@/components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
+import NextAuthSessionProvider from "@/Providers/NextAuthSessionProvider";
 
 export const poppins = Poppins({
   subsets: ["latin"],
@@ -26,19 +27,21 @@ export default function RootLayout({ children }) {
       <body
         className={`${poppins.className} antialiased`}
       >
-        {/* nav bar */}
-        <nav className="bg-base-100">
-          <NavBar></NavBar>
-        </nav>
-        <main className="mb-12">
-          {/* page route */}
-          {children}
-          <ToastContainer />
-        </main>
-        {/* footer */}
-        <footer>
-          <Footer></Footer>
-        </footer>
+        <NextAuthSessionProvider>
+          {/* nav bar */}
+          <nav className="bg-base-100">
+            <NavBar></NavBar>
+          </nav>
+          <main className="mb-12">
+            {/* page route */}
+            {children}
+            <ToastContainer />
+          </main>
+          {/* footer */}
+          <footer>
+            <Footer></Footer>
+          </footer>
+        </NextAuthSessionProvider>
       </body>
     </html>
   );

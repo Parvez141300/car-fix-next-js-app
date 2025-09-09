@@ -39,7 +39,7 @@ const ServiceDetailsPage = async ({ params }) => {
       <figure className="relative h-96 rounded-lg overflow-hidden">
         <Image
           src={serviceImage}
-          alt={serviceImage}
+          alt={'serviceImage'}
           fill
           className="object-cover"
         ></Image>

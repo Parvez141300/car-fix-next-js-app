@@ -1,25 +1,39 @@
+"use client";
 import React from "react";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import NavLink from "../NavLink/NavLink";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
+  const { data: session, status } = useSession();
+  console.log(session);
+  const handleLogout = () => {
+    signOut();
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Successfully Logged out",
+      showConfirmButton: false,
+    });
+  };
   const links = (
     <>
       <li>
-        <NavLink href={'/'}>Home</NavLink>
+        <NavLink href={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink href={'/about'}>About</NavLink>
+        <NavLink href={"/about"}>About</NavLink>
       </li>
       <li>
-        <NavLink href={'/services'}>Services</NavLink>
+        <NavLink href={"/services"}>Services</NavLink>
       </li>
       <li>
-        <NavLink href={'/blog'}>Blog</NavLink>
+        <NavLink href={"/blog"}>Blog</NavLink>
       </li>
       <li>
-        <NavLink href={'/contact'}>Contact</NavLink>
+        <NavLink href={"/contact"}>Contact</NavLink>
       </li>
     </>
   );
@@ -27,7 +41,11 @@ const NavBar = () => {
     <div className="navbar p-0 w-11/12 max-w-7xl mx-auto">
       <div className="navbar-start">
         <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden px-0">
+          <div
+            tabIndex={0}
+            role="button"
+            className="btn btn-ghost lg:hidden px-0"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -51,15 +69,32 @@ const NavBar = () => {
             {links}
           </ul>
         </div>
-        <Link href={'/'} className="btn btn-ghost text-xl px-0 text-accent">CarFix</Link>
+        <Link href={"/"} className="btn btn-ghost text-xl px-0 text-accent">
+          CarFix
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex text-accent">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-3">
         <ThemeToggle></ThemeToggle>
-        <Link href={'/login'} className="text-accent">Login</Link>
-        <Link href={'/register'} className="text-accent">Register</Link>
+        {status == "authenticated" ? (
+          <button
+            onClick={handleLogout}
+            className="btn btn-secondary rounded-lg"
+          >
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link href={"/login"} className="text-accent">
+              Login
+            </Link>
+            <Link href={"/register"} className="text-accent">
+              Register
+            </Link>
+          </>
+        )}
         <a className="btn btn-secondary btn-outline rounded-md">Appointment</a>
       </div>
     </div>
