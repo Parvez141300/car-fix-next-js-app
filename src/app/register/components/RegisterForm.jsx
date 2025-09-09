@@ -40,6 +40,7 @@ const RegisterForm = () => {
     try {
       setLoading(true);
       const res = await registerUser(payload);
+      console.log('resonse is:', res);
       if (res.insertedId) {
         setLoading(true);
         Swal.fire({
@@ -164,7 +165,7 @@ const RegisterForm = () => {
                 disabled={loading}
                 className={`btn btn-primary w-full rounded-lg flex items-center gap-1`}
               >
-                {loading ? <span class="loading loading-spinner"></span> : ""}
+                {loading ? <span className="loading loading-spinner"></span> : ""}
                 {loading ? 'Registering' : 'Register'}
               </button>
             </div>

@@ -12,15 +12,61 @@ import {
 import registerLottie from "../../../../public/LoginLottie.json";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const formData = new FormData(form);
-    const loginInfo = Object.fromEntries(formData);
+    const { email, password } = Object.fromEntries(formData);
+    try {
+      setLoading(true);
+      const res = await signIn("credentials", {
+        email,
+        password,
+        callbackUrl: "/",
+        redirect: false,
+      });
+      if (res.ok) {
+        router.push("/");
+        form.reset();
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Successfully Logged in",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      } else {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Login Error: Authentication Failed",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setLoading(false);
+      console.log("error message", error);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 place-items-center">
@@ -83,10 +129,12 @@ const LoginForm = () => {
             {/* Submit Button */}
             <div className="form-control mt-6">
               <button
+                disabled={loading}
                 type="submit"
-                className={`btn btn-primary w-full rounded-lg`}
+                className={`btn btn-primary w-full rounded-lg flex items-center gap-1`}
               >
-                Login
+                {loading ? <span class="loading loading-spinner"></span> : ""}
+                {loading ? "Logging In" : "Login"}
               </button>
             </div>
           </form>
