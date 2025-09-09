@@ -9,6 +9,10 @@ import { FcGoogle } from "react-icons/fc";
 const LoginForm = () => {
   const handleLogin = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const loginInfo = Object.fromEntries(formData);
+    console.log('login info', loginInfo);
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 place-items-center">
@@ -39,6 +43,7 @@ const LoginForm = () => {
                   name="email"
                   className="grow"
                   placeholder="john@example.com"
+                  required
                 />
               </label>
             </div>
@@ -55,6 +60,7 @@ const LoginForm = () => {
                   name="password"
                   className="grow"
                   placeholder="••••••••"
+                  required
                 />
                 <button type="button" className="btn btn-ghost btn-sm">
                   <FaEyeSlash /> : <FaEye />
@@ -68,7 +74,7 @@ const LoginForm = () => {
                 type="submit"
                 className={`btn btn-primary w-full rounded-lg`}
               >
-                Register
+                Login
               </button>
             </div>
           </form>

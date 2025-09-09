@@ -9,6 +9,10 @@ import { FcGoogle } from "react-icons/fc";
 const RegisterForm = () => {
   const handleRegister = (e) => {
     e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const registerInfo = Object.fromEntries(formData);
+    console.log('register info', registerInfo);
   };
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 place-items-center">
@@ -39,6 +43,7 @@ const RegisterForm = () => {
                   name="name"
                   className="grow"
                   placeholder="John Doe"
+                  required
                 />
               </label>
             </div>
@@ -55,6 +60,7 @@ const RegisterForm = () => {
                   name="email"
                   className="grow"
                   placeholder="john@example.com"
+                  required
                 />
               </label>
             </div>
@@ -71,6 +77,7 @@ const RegisterForm = () => {
                   name="password"
                   className="grow"
                   placeholder="••••••••"
+                  required
                 />
                 <button type="button" className="btn btn-ghost btn-sm">
                   <FaEyeSlash /> : <FaEye />
@@ -90,6 +97,7 @@ const RegisterForm = () => {
                   name="confirmPassword"
                   className="grow"
                   placeholder="••••••••"
+                  required
                 />
                 <button type="button" className="btn btn-ghost btn-sm">
                   <FaEyeSlash /> <FaEye />
