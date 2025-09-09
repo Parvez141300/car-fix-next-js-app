@@ -5,6 +5,7 @@ import NavLink from "../NavLink/NavLink";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
 import Swal from "sweetalert2";
+import Image from "next/image";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
@@ -79,12 +80,26 @@ const NavBar = () => {
       <div className="navbar-end gap-3">
         <ThemeToggle></ThemeToggle>
         {status == "authenticated" ? (
-          <button
-            onClick={handleLogout}
-            className="btn btn-secondary rounded-lg"
-          >
-            Logout
-          </button>
+          <>
+            <div className="avatar">
+              <div className="ring-primary ring-offset-base-100 w-8 rounded-full ring-2 ring-offset-2">
+                <Image
+                  src={session?.user?.image}
+                  alt={session?.user?.name}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover relative"
+                ></Image>
+              </div>
+            </div>
+
+            <button
+              onClick={handleLogout}
+              className="btn btn-secondary rounded-lg"
+            >
+              Logout
+            </button>
+          </>
         ) : (
           <>
             <Link href={"/login"} className="text-accent">
