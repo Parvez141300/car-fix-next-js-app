@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const NavBar = () => {
   const { data: session, status } = useSession();
-  console.log(session);
+  console.log(session, status);
   const handleLogout = () => {
     signOut();
     Swal.fire({
@@ -79,17 +79,20 @@ const NavBar = () => {
       </div>
       <div className="navbar-end gap-3">
         <ThemeToggle></ThemeToggle>
-        {status == "authenticated" ? (
+        {status === "loading" ? (
+          // Loader while checking session
+          <span className="loading loading-spinner text-primary w-6 h-6"></span>
+        ) : status === "authenticated" ? (
           <>
             <div className="avatar">
-              <div className="ring-primary ring-offset-base-100 w-8 rounded-full ring-2 ring-offset-2">
+              <div className="ring-primary ring-offset-base-100 w-8 h-8 rounded-full ring-2 ring-offset-2 relative overflow-hidden">
                 <Image
                   src={session?.user?.image}
                   alt={session?.user?.name}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  className="object-cover relative"
-                ></Image>
+                  className="object-cover"
+                />
               </div>
             </div>
 
