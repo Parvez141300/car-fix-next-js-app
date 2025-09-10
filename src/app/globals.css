@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@plugin "daisyui"{
+
+@plugin "daisyui" {
   themes: light --default, dark;
 }
 
@@ -20,3 +21,7 @@
   --color-base-100: #070305;
 }
 
+/* raw css */
+.shape {
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+}

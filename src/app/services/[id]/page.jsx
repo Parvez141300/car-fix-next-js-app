@@ -1,5 +1,3 @@
-import dbConnect, { collectionNames } from "@/lib/dbConnect";
-import { ObjectId } from "mongodb";
 import Image from "next/image";
 import React from "react";
 import serviceImage from "../../../../public/assets/images/checkout/checkout.png";
@@ -7,10 +5,8 @@ import { FiArrowRight, FiFileText } from "react-icons/fi";
 
 const ServiceDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const serviceCollection = dbConnect(collectionNames.serviceCollection);
-  const singleService = await serviceCollection.findOne({
-    _id: new ObjectId(id),
-  });
+  const res = await fetch(`http://localhost:3000/api/service/${id}`);
+  const singleService = await res.json();
 
   const services = [
     { id: 1, name: "Full Car Repair" },
@@ -39,7 +35,7 @@ const ServiceDetailsPage = async ({ params }) => {
       <figure className="relative h-96 rounded-lg overflow-hidden">
         <Image
           src={serviceImage}
-          alt={'serviceImage'}
+          alt={"serviceImage"}
           fill
           className="object-cover"
         ></Image>
@@ -49,6 +45,11 @@ const ServiceDetailsPage = async ({ params }) => {
               Service Details
             </h2>
           </div>
+        </div>
+        <div className="absolute z-20 bottom-0 flex left-1/2 transform -translate-x-1/2">
+          <button className="btn btn-secondary shape">
+            Home/Service Details
+          </button>
         </div>
       </figure>
 
@@ -152,8 +153,12 @@ const ServiceDetailsPage = async ({ params }) => {
           </div>
           {/* processed to checkout */}
           <div className="space-y-3">
-            <h2 className="text-2xl lg:text-3xl font-bold">Price: ${singleService.price}</h2>
-            <button className="btn btn-primary w-full rounded-lg">Processed To Checkout</button>
+            <h2 className="text-2xl lg:text-3xl font-bold">
+              Price: ${singleService.price}
+            </h2>
+            <button className="btn btn-primary w-full rounded-lg">
+              Processed To Checkout
+            </button>
           </div>
         </aside>
       </div>
