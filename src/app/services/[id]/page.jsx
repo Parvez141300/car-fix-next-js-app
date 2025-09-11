@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import serviceImage from "../../../../public/assets/images/checkout/checkout.png";
 import { FiArrowRight, FiFileText } from "react-icons/fi";
+import Link from "next/link";
 
 const ServiceDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -30,8 +31,8 @@ const ServiceDetailsPage = async ({ params }) => {
   }
 
   return (
-    <section className="w-11/12 max-w-7xl mx-auto py-10 space-y-8">
-      {/* banner */}
+    <section className="w-11/12 max-w-7xl mx-auto my-10 space-y-8">
+      {/* service banner */}
       <figure className="relative h-96 rounded-lg overflow-hidden">
         <Image
           src={serviceImage}
@@ -156,9 +157,9 @@ const ServiceDetailsPage = async ({ params }) => {
             <h2 className="text-2xl lg:text-3xl font-bold">
               Price: ${singleService.price}
             </h2>
-            <button className="btn btn-primary w-full rounded-lg">
+            <Link href={`/checkout/${id}`} className="btn btn-primary w-full rounded-lg">
               Processed To Checkout
-            </button>
+            </Link>
           </div>
         </aside>
       </div>
