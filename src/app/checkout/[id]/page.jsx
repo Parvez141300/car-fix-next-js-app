@@ -7,10 +7,7 @@ const CheckOutPage = async({params}) => {
     const singleService = await res.json();
     return (
         <div className='w-11/12 max-w-7xl mx-auto my-10 space-y-8'>
-            {
-                JSON.stringify(singleService)
-            }
-            <CheckOutForm></CheckOutForm>
+            <CheckOutForm singleService={singleService}></CheckOutForm>
         </div>
     );
 };
