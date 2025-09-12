@@ -32,7 +32,7 @@ export const DELETE = async (request, { params }) => {
         // revalidatePath('/my-bookings');
         return NextResponse.json(result);
     }
-    else{
-        return NextResponse.json({success: false, message: 'forbidden action'}, {status: 401});
+    else {
+        return NextResponse.json({ success: false, message: 'forbidden action' }, { status: 401 });
     }
 }
