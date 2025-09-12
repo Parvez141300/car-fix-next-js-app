@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
+import DeleteBooking from "./DeleteBooking";
 
 const MyBookingTable = ({ bookings }) => {
   console.log("bookings are: ", bookings);
@@ -58,10 +59,7 @@ const MyBookingTable = ({ bookings }) => {
                       <FaEdit size={10}></FaEdit>
                       Edit
                     </button>
-                    <button className="btn rounded-lg">
-                      <FaTrash size={10}></FaTrash>
-                      Delete
-                    </button>
+                    <DeleteBooking bookingId={booking?._id}></DeleteBooking>
                   </td>
                 </tr>
               );

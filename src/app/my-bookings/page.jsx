@@ -1,37 +1,38 @@
-"use client";
-import React, { useEffect, useState } from "react";
+// "use client";
+import React from "react";
 import MyBookingTable from "./components/MyBookingTable";
 import Image from "next/image";
 import bookingImg from "../../../public/assets/images/banner/2.jpg";
 import { toast } from "react-toastify";
+import { headers } from "next/headers";
 
-const MyBookingsPage = () => {
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    const fetchBookings = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch("http://localhost:3000/api/service");
-        const data = await res.json();
-        setBookings(data);
-      } catch (error) {
-        setLoading(false);
-        toast.error(error.message, { position: "top-center" });
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBookings();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner loading-xl"></span>
-      </div>
-    );
+export const fetchBookings = async () => {
+  try {
+    // setLoading(true);
+    const res = await fetch("http://localhost:3000/api/service", {
+      headers: headers()
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    // setLoading(false);
+    toast.error(error.message, { position: "top-center" });
   }
+};
+
+
+const MyBookingsPage = async() => {
+  // const [loading, setLoading] = useState(false);
+
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center items-center h-screen">
+  //       <span className="loading loading-spinner loading-xl"></span>
+  //     </div>
+  //   );
+  // }
+  const bookings = await fetchBookings();
+
   return (
     <div className="w-11/12 max-w-7xl mx-auto my-10 space-y-8">
       {/* booking banner */}
@@ -53,7 +54,13 @@ const MyBookingsPage = () => {
           <button className="btn btn-secondary shape">Home/My Bookings</button>
         </div>
       </figure>
-      <MyBookingTable bookings={bookings}></MyBookingTable>
+      {bookings?.length > 0 ? (
+        <MyBookingTable bookings={bookings}></MyBookingTable>
+      ) : (
+        <div className="flex justify-center items-center h-screen">
+          <p>There Are No Bookings!</p>
+        </div>
+      )}
     </div>
   );
 };
