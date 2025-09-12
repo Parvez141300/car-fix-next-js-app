@@ -2,6 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { FaEdit } from "react-icons/fa";
 import DeleteBooking from "./DeleteBooking";
+import Link from "next/link";
 
 const MyBookingTable = ({ bookings }) => {
   console.log("bookings are: ", bookings);
@@ -55,10 +56,10 @@ const MyBookingTable = ({ bookings }) => {
                   <td>{booking?.date}</td>
                   <td>{booking?.price}</td>
                   <td className="space-x-2">
-                    <button className="btn rounded-lg">
+                    <Link href={`/my-bookings/${booking._id}`} className="btn rounded-lg">
                       <FaEdit size={10}></FaEdit>
                       Edit
-                    </button>
+                    </Link>
                     <DeleteBooking bookingId={booking?._id}></DeleteBooking>
                   </td>
                 </tr>
