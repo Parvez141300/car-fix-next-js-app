@@ -1,42 +1,41 @@
 "use client";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
 const BookingUpdateForm = ({ bookingData }) => {
   const [loading, setLoading] = useState(false);
   const { data } = useSession();
+  const router = useRouter();
 
-  const handleCheckOut = async (e) => {
-    setLoading(true);
+  const handleBookingUpdate = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const form = e.target;
     const formData = new FormData(form);
-    const bookingPayload = Object.fromEntries(formData);
-    bookingPayload.service_name = bookingData?.title;
-    bookingPayload.service_id = bookingData?._id;
-    bookingPayload.service_img = bookingData?.img;
-    bookingPayload.service_price = bookingData?.price;
+    const { date, phone, address } = Object.fromEntries(formData);
+    const bookingPayload = { date, phone, address };
+    console.log("from update form", bookingPayload);
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/api/service`, {
-        method: "POST",
-        body: JSON.stringify(bookingPayload),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        `http://localhost:3000/api/my-bookings/${bookingData?.service_id}`,
+        {
+          method: "PATCH",
+          body: JSON.stringify(bookingPayload),
+        }
+      );
 
       const responseData = await res.json();
+      console.log("updated responseData is: ", responseData);
 
-      console.log("responseData is: ", responseData);
-
-      if (responseData.insertedId) {
-        toast.success("Successfully Submitted Booking", {
+      if (responseData?.modifiedCount) {
+        toast.success("Successfully Updated Booking", {
           position: "top-center",
           autoClose: 500,
         });
-        form.reset();
+        router.push("/my-bookings");
       }
     } catch (error) {
       setLoading(false);
@@ -48,6 +47,14 @@ const BookingUpdateForm = ({ bookingData }) => {
       setLoading(false);
     }
   };
+
+  // const handleBookingUpdate = (e) => {
+  //   e.preventDefault();
+  //   const form = e.target;
+  //   const formData = new FormData(form);
+  //   const {address, date, phone} = Object.fromEntries(formData);
+  //   console.log('booking update form info', {address, date, phone});  
+  // }
   return (
     <div className="bg-base-100 rounded-lg shadow-md p-6">
       <h1 className="text-2xl font-bold text-center mb-6">
@@ -55,7 +62,7 @@ const BookingUpdateForm = ({ bookingData }) => {
       </h1>
 
       <form
-        onSubmit={handleCheckOut}
+        onSubmit={handleBookingUpdate}
         className="grid grid-cols-1 md:grid-cols-2 gap-5"
       >
         {/* name field */}
@@ -163,7 +170,8 @@ const BookingUpdateForm = ({ bookingData }) => {
           >
             {loading ? (
               <div>
-                <span className="loading loading-spinner"></span> Updating Booking
+                <span className="loading loading-spinner"></span> Updating
+                Booking
               </div>
             ) : (
               "Update Booking"

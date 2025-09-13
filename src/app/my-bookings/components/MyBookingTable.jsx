@@ -5,7 +5,7 @@ import DeleteBooking from "./DeleteBooking";
 import Link from "next/link";
 
 const MyBookingTable = ({ bookings }) => {
-  console.log("bookings are: ", bookings);
+  // console.log("bookings are: ", bookings);
   //   {
   //     "_id": "68c276a881d55e854de4b33d",
   //     "customerName": "parvez hossain",
@@ -29,6 +29,8 @@ const MyBookingTable = ({ bookings }) => {
               <th>No.</th>
               <th>Service Image</th>
               <th>Service Name</th>
+              <th>Phone</th>
+              <th>Address</th>
               <th>Service Date</th>
               <th>Service Price</th>
               <th>Actions</th>
@@ -53,6 +55,8 @@ const MyBookingTable = ({ bookings }) => {
                     ></Image>
                   </td>
                   <td>{booking?.service_name}</td>
+                  <td>{booking?.phone}</td>
+                  <td>{booking?.address}</td>
                   <td>{booking?.date}</td>
                   <td>{booking?.price}</td>
                   <td className="space-x-2">

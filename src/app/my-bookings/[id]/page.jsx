@@ -2,10 +2,13 @@ import React from "react";
 import BookingUpdateForm from "../components/BookingUpdateForm";
 import Image from "next/image";
 import checkOutImage from "../../../../public/assets/images/checkout/checkout.png";
+import { headers } from "next/headers";
 
 const UpdateBookingPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:3000/api/my-bookings/${id}`);
+  const res = await fetch(`http://localhost:3000/api/my-bookings/${id}`, {
+    headers: await headers(),
+  });
   const bookingData = await res.json();
   return (
     <div className="w-11/12 max-w-7xl mx-auto my-10 space-y-8">

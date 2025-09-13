@@ -10,7 +10,7 @@ export const fetchBookings = async () => {
   try {
     // setLoading(true);
     const res = await fetch("http://localhost:3000/api/service", {
-      headers: headers()
+      headers: await headers()
     });
     const data = await res.json();
     return data;
