@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const ServiceDetailsPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:3000/api/service/${id}`);
+  const res = await fetch(`https://car-fix-next-js-app.vercel.app/api/service/${id}`);
   const singleService = await res.json();
 
   const services = [

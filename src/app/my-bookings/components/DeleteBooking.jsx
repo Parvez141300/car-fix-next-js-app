@@ -23,7 +23,7 @@ const DeleteBooking = ({ bookingId }) => {
       }).then(async (result) => {
         if (result.isConfirmed) {
           setLoading(true);
-          const res = await fetch(`http://localhost:3000/api/service/${id}`, {
+          const res = await fetch(`https://car-fix-next-js-app.vercel.app/api/service/${id}`, {
             method: "DELETE",
           });
           const data = await res.json();

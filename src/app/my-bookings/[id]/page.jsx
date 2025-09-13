@@ -6,8 +6,8 @@ import { headers } from "next/headers";
 
 const UpdateBookingPage = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch(`http://localhost:3000/api/my-bookings/${id}`, {
-    headers: await headers(),
+  const res = await fetch(`https://car-fix-next-js-app.vercel.app/api/my-bookings/${id}`, {
+    headers: new Headers(await headers()),
   });
   const bookingData = await res.json();
   return (

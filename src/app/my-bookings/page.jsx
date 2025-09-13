@@ -3,20 +3,19 @@ import React from "react";
 import MyBookingTable from "./components/MyBookingTable";
 import Image from "next/image";
 import bookingImg from "../../../public/assets/images/banner/2.jpg";
-import { toast } from "react-toastify";
 import { headers } from "next/headers";
 
 export const fetchBookings = async () => {
   try {
     // setLoading(true);
-    const res = await fetch("http://localhost:3000/api/service", {
-      headers: await headers()
+    const res = await fetch("https://car-fix-next-js-app.vercel.app/api/service", {
+      headers: new Headers(await headers()),
     });
     const data = await res.json();
     return data;
   } catch (error) {
-    // setLoading(false);
-    toast.error(error.message, { position: "top-center" });
+    console.error("Error fetching bookings:", error.message);
+    return [];
   }
 };
 

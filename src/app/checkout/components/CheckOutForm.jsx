@@ -19,12 +19,9 @@ const CheckOutForm = ({ singleService }) => {
     bookingPayload.service_price = singleService?.price;
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:3000/api/service`, {
+      const res = await fetch(`https://car-fix-next-js-app.vercel.app/api/service`, {
         method: "POST",
         body: JSON.stringify(bookingPayload),
-        headers: {
-          "Content-Type": "application/json",
-        },
       });
 
       const responseData = await res.json();

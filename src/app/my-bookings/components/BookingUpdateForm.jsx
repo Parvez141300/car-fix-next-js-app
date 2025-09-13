@@ -20,7 +20,7 @@ const BookingUpdateForm = ({ bookingData }) => {
     try {
       setLoading(true);
       const res = await fetch(
-        `http://localhost:3000/api/my-bookings/${bookingData?.service_id}`,
+        `https://car-fix-next-js-app.vercel.app/api/my-bookings/${bookingData?.service_id}`,
         {
           method: "PATCH",
           body: JSON.stringify(bookingPayload),
