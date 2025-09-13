@@ -1,4 +1,5 @@
-'use client';
+"use client";
+import Link from "next/link";
 import { useState } from "react";
 import {
   FaPhone,
@@ -68,8 +69,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                    <p className="text-gray-600">+1 (555) 987-6543</p>
+                    <p className="text-gray-600">+880 1872243808</p>
+                    <p className="text-gray-600">+880 1743063201</p>
                   </div>
                 </div>
 
@@ -79,8 +80,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold">Email</h3>
-                    <p className="text-gray-600">info@carfix.com</p>
-                    <p className="text-gray-600">support@carfix.com</p>
+                    <p className="text-gray-600">parvez.alif.dev@gmail.com</p>
+                    <p className="text-gray-600">parvez.h.alif@gmail.com</p>
                   </div>
                 </div>
 
@@ -90,8 +91,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="font-semibold">Address</h3>
-                    <p className="text-gray-600">123 Automotive Avenue</p>
-                    <p className="text-gray-600">Detroit, MI 48201</p>
+                    <p className="text-gray-600">Ershad Nagar, Tongi</p>
+                    <p className="text-gray-600"> Gazipur, Dhaka</p>
                   </div>
                 </div>
 
@@ -280,7 +281,7 @@ const Contact = () => {
           Can't find what you're looking for? Check out our FAQ section for
           quick answers to common questions.
         </p>
-        <button className="btn btn-outline btn-primary">View FAQ</button>
+        <Link href={'/faq'} className="btn btn-outline btn-primary">View FAQ</Link>
       </div>
     </div>
   );

@@ -155,8 +155,8 @@ const Footer = () => {
             <div className="space-y-2 text-gray-300">
               <p>Ershad Nagar, Tongi</p>
               <p>Gazipur, Dhaka</p>
-              <p>Phone: (555) 123-4567</p>
-              <p>Email: support@carfix.com</p>
+              <p>Phone: +880 1872243808</p>
+              <p>Email: parvez.alif.dev@gmail.com</p>
             </div>
             <div className="pt-2">
               <h4 className="font-semibold mb-2">Business Hours</h4>
